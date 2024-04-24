@@ -23,8 +23,68 @@ namespace VideoGamesApp.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            _db.Categories.Add(obj); // add the object of new category to the database
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(obj); // add the object of new category to the database
+                _db.SaveChanges();       // save and update the changes
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction("Index");  // redirect to category list
+            }
+            return View();
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id==0)
+            {
+               return NotFound();
+            }
+            Category? categoryFromDv = _db.Categories.Find(id);
+            //Category? categoryFromDv1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //Category? categoryFromDv2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
+            if (categoryFromDv == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDv);
+        }
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj); // add the object of new category to the database
+                _db.SaveChanges();       // save and update the changes
+                TempData["success"] = "Category updated successfully";
+                return RedirectToAction("Index");  // redirect to category list
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDv = _db.Categories.Find(id);
+            if (categoryFromDv == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDv);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
+        {
+            Category? obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(obj);
             _db.SaveChanges();       // save and update the changes
+            TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");  // redirect to category list
         }
     }
