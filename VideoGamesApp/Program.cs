@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VideoGames.DataAccess.Data;
+using VideoGames.DataAccess.Repository;
+using VideoGames.DataAccess.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); //tell the program that we use sql server
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

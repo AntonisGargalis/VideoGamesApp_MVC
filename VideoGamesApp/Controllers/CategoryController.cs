@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VideoGames.DataAccess.Data;
+using VideoGames.DataAccess.Repository.IRepository;
 using VideoGames.Models;
 
 namespace VideoGamesApp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db) 
-        { 
-            _db = db;
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository db) 
+        {
+            _categoryRepo = db;
         }
         public IActionResult Index()
         {
-            List<Category>  objCategoryList = _db.Categories.ToList();
+            List<Category>  objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
         public IActionResult Create()
@@ -25,8 +26,8 @@ namespace VideoGamesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj); // add the object of new category to the database
-                _db.SaveChanges();       // save and update the changes
+                _categoryRepo.Add(obj); // add the object of new category to the database
+                _categoryRepo.Save();       // save and update the changes
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");  // redirect to category list
             }
@@ -39,7 +40,7 @@ namespace VideoGamesApp.Controllers
             {
                return NotFound();
             }
-            Category? categoryFromDv = _db.Categories.Find(id);
+            Category? categoryFromDv = _categoryRepo.Get(u => u.Id == id);
             //Category? categoryFromDv1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? categoryFromDv2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
             if (categoryFromDv == null)
@@ -53,8 +54,8 @@ namespace VideoGamesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj); // add the object of new category to the database
-                _db.SaveChanges();       // save and update the changes
+                _categoryRepo.Update(obj); // add the object of new category to the database
+                _categoryRepo.Save();       // save and update the changes
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");  // redirect to category list
             }
@@ -67,7 +68,7 @@ namespace VideoGamesApp.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDv = _db.Categories.Find(id);
+            Category? categoryFromDv = _categoryRepo.Get(u => u.Id == id);
             if (categoryFromDv == null)
             {
                 return NotFound();
@@ -77,13 +78,13 @@ namespace VideoGamesApp.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();       // save and update the changes
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();       // save and update the changes
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");  // redirect to category list
         }
