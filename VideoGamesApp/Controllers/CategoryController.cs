@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VideoGamesApp.Data;
-using VideoGamesApp.Models;
+using VideoGames.DataAccess.Data;
+using VideoGames.Models;
 
 namespace VideoGamesApp.Controllers
 {

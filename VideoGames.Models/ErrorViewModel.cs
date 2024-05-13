@@ -1,4 +1,4 @@
-namespace VideoGamesApp.Models
+namespace VideoGames.Models
 {
     public class ErrorViewModel
     {

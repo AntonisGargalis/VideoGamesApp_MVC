@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VideoGamesApp.Models;
+using VideoGames.Models;
 
-namespace VideoGamesApp.Data
+
+namespace VideoGames.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext // the class inherited everything from package
     {
@@ -10,7 +11,7 @@ namespace VideoGamesApp.Data
 
         }
 
-        public DbSet<Category> Categories {  get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VideoGamesApp.Models;
+using VideoGames.Models;
 
 namespace VideoGamesApp.Controllers
 {
