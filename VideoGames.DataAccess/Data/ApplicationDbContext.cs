@@ -12,6 +12,7 @@ namespace VideoGames.DataAccess.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +20,53 @@ namespace VideoGames.DataAccess.Data
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1},
                 new Category { Id = 2, Name = "Adventure", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "Strategy", DisplayOrder = 3 }
+                );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product { 
+                    Id = 1, 
+                    Title = "Fallout 4",
+                    Description = "Survival in a post apocaliptic world",
+                    SerialNumber = "345-F54-O11",
+                    Publisher = "Bethesda Studios",
+                    Price = 39.90
+                },
+                new Product
+                {
+                    Id = 2,
+                    Title = "Call of Duty Modern Warfare",
+                    Description = "Action first person shooting",
+                    SerialNumber = "367-C14-D45",
+                    Publisher = "ACTIVITION",
+                    Price = 59.90
+                },
+                new Product
+                {
+                    Id = 3,
+                    Title = "The Witcher 3",
+                    Description = "Medival world with nights and wizards",
+                    SerialNumber = "876-T23-W19",
+                    Publisher = "CD Project",
+                    Price = 29.90
+                },
+                new Product
+                {
+                    Id = 4,
+                    Title = "Elder Scrolls Skyrim",
+                    Description = "RPG MMO viking game",
+                    SerialNumber = "E45-S94-S41",
+                    Publisher = "Bethesda Studios",
+                    Price = 24.90
+                },
+                new Product
+                {
+                    Id = 5,
+                    Title = "Assassin Creed Odyssey",
+                    Description = "Greek hellenic 300bc",
+                    SerialNumber = "A85-C14-O77",
+                    Publisher = "Ubisoft",
+                    Price = 49.90
+                }
                 );
         }
     }
