@@ -40,12 +40,12 @@ namespace VideoGamesApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product? productyFromDv = _unitOfWork.Product.Get(u => u.Id == id);
-            if (productyFromDv == null)
+            Product? productFromDv = _unitOfWork.Product.Get(u => u.Id == id);
+            if (productFromDv == null)
             {
                 return NotFound();
             }
-            return View(productyFromDv);
+            return View(productFromDv);
         }
         [HttpPost]
         public IActionResult Edit(Product obj)
@@ -82,9 +82,9 @@ namespace VideoGamesApp.Areas.Admin.Controllers
                 return NotFound();
             }
             _unitOfWork.Product.Remove(obj);
-            _unitOfWork.Save();       // save and update the changes
+            _unitOfWork.Save();      
             TempData["success"] = "Product deleted successfully";
-            return RedirectToAction("Index");  // redirect to category list
+            return RedirectToAction("Index");  
         }
     }
 }
