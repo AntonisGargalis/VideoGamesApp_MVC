@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductVM
 
 <div class="card shadow border-0 mt-4"> 
     <div class="card-header bg-primary bg-gradient m-lg-0 py-3">
@@ -9,33 +9,44 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="border p-3">
                 @* <div asp-validation-summary="All"> </div> *@
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Title" class="form-control border-0 shadow"/>
-                    <label asp-for="Title" class="ms-2"></label>
-                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <input asp-for="Product.Title" class="form-control border-0 shadow" />
+                    <label asp-for="Product.Title" class="ms-2"></label>
+                    <span asp-validation-for="Product.Title" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Description" class="form-control border-0 shadow" />
-                    <label asp-for="Description" class="ms-2"></label>
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <input asp-for="Product.Description" class="form-control border-0 shadow" />
+                    <label asp-for="Product.Description" class="ms-2"></label>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="SerialNumber" class="form-control border-0 shadow" />
-                    <label asp-for="SerialNumber" class="ms-2"></label>
-                    <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                    <input asp-for="Product.SerialNumber" class="form-control border-0 shadow" />
+                    <label asp-for="Product.SerialNumber" class="ms-2"></label>
+                    <span asp-validation-for="Product.SerialNumber" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Publisher" class="form-control border-0 shadow" />
-                    <label asp-for="Publisher" class="ms-2"></label>
-                    <span asp-validation-for="Publisher" class="text-danger"></span>
+                    <input asp-for="Product.Publisher" class="form-control border-0 shadow" />
+                    <label asp-for="Product.Publisher" class="ms-2"></label>
+                    <span asp-validation-for="Product.Publisher" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Price" class="form-control border-0 shadow" />
-                    <label asp-for="Price" class="ms-2"></label>
-                    <span asp-validation-for="Price" class="text-danger"></span>
+                    <input asp-for="Product.Price" class="form-control border-0 shadow" />
+                    <label asp-for="Product.Price" class="ms-2"></label>
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input type="file" class="form-control border-0 shadow" />
+                    <label asp-for="Product.ImageUrl" class="ms-2"></label>                    
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+                    <label asp-for="Product.CategoryId" class="ms-2"></label>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                 </div>
 
                 <div class="row pt-2">

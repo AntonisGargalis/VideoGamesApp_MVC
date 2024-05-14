@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VideoGames.DataAccess.Data;
 
@@ -10,9 +11,11 @@ using VideoGames.DataAccess.Data;
 namespace VideoGames.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240514160511_addForeignKeyForCategoryProductRelation")]
+    partial class addForeignKeyForCategoryProductRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,10 +80,6 @@ namespace VideoGames.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -108,7 +107,6 @@ namespace VideoGames.DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "Survival in a post apocaliptic world",
-                            ImageUrl = "",
                             Price = 39.899999999999999,
                             Publisher = "Bethesda Studios",
                             SerialNumber = "345-F54-O11",
@@ -119,7 +117,6 @@ namespace VideoGames.DataAccess.Migrations
                             Id = 2,
                             CategoryId = 1,
                             Description = "Action first person shooting",
-                            ImageUrl = "",
                             Price = 59.899999999999999,
                             Publisher = "ACTIVITION",
                             SerialNumber = "367-C14-D45",
@@ -130,7 +127,6 @@ namespace VideoGames.DataAccess.Migrations
                             Id = 3,
                             CategoryId = 1,
                             Description = "Medival world with nights and wizards",
-                            ImageUrl = "",
                             Price = 29.899999999999999,
                             Publisher = "CD Project",
                             SerialNumber = "876-T23-W19",
@@ -141,7 +137,6 @@ namespace VideoGames.DataAccess.Migrations
                             Id = 4,
                             CategoryId = 1,
                             Description = "RPG MMO viking game",
-                            ImageUrl = "",
                             Price = 24.899999999999999,
                             Publisher = "Bethesda Studios",
                             SerialNumber = "E45-S94-S41",
@@ -152,7 +147,6 @@ namespace VideoGames.DataAccess.Migrations
                             Id = 5,
                             CategoryId = 1,
                             Description = "Greek hellenic 300bc",
-                            ImageUrl = "",
                             Price = 49.899999999999999,
                             Publisher = "Ubisoft",
                             SerialNumber = "A85-C14-O77",
