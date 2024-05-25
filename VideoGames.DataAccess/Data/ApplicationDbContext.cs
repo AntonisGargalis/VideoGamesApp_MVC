@@ -16,6 +16,7 @@ namespace VideoGames.DataAccess.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Company> Companies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -81,6 +82,29 @@ namespace VideoGames.DataAccess.Data
                  Price = 49.90,
                  CategoryId = 1,
                  ImageUrl = ""
+             }
+             );
+
+            modelBuilder.Entity<Company>().HasData(
+             new Company
+             {
+                 Id = 1,
+                 Name = "PC GAMER",
+                 StreetAddress = " Boulavard 12",
+                 City = "New York",
+                 State = "New York",
+                 PostalCode = "2345241",
+                 PhoneNumber = "00995672353"
+             },
+             new Company
+             {
+                 Id = 2,
+                 Name = "ISHIMA GAMES",
+                 StreetAddress = "Tokyo Street 76",
+                 City = "Tokyo",
+                 State = "Tokyo",
+                 PostalCode = "3873234",
+                 PhoneNumber = "0052564725"
              }
              );
         }

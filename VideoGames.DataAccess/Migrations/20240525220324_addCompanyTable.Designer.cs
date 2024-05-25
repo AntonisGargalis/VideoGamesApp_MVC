@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VideoGames.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using VideoGames.DataAccess.Data;
 namespace VideoGames.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525220324_addCompanyTable")]
+    partial class addCompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,28 +303,6 @@ namespace VideoGames.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "New York",
-                            Name = "PC GAMER",
-                            PhoneNumber = "00995672353",
-                            PostalCode = "2345241",
-                            State = "New York",
-                            StreetAddress = " Boulavard 12"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Tokyo",
-                            Name = "ISHIMA GAMES",
-                            PhoneNumber = "0052564725",
-                            PostalCode = "3873234",
-                            State = "Tokyo",
-                            StreetAddress = "Tokyo Street 76"
-                        });
                 });
 
             modelBuilder.Entity("VideoGames.Models.Product", b =>
@@ -429,9 +410,6 @@ namespace VideoGames.DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -444,8 +422,6 @@ namespace VideoGames.DataAccess.Migrations
 
                     b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -510,15 +486,6 @@ namespace VideoGames.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("VideoGames.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("VideoGames.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }
