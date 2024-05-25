@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using VideoGames.DataAccess.Data;
 using VideoGames.DataAccess.Repository;
 using VideoGames.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); //tell the program that we use sql server
 
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+//options => options.SignIn.RequireConfirmedAccount = true for email confirmation
+builder.Services.AddRazorPages(); // in order to work the identity who has razor pages
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
@@ -26,8 +30,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting(); 
-
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapRazorPages(); // in order to work the identity who has razor pages
 
 app.MapControllerRoute(
     name: "default",

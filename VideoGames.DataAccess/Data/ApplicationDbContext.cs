@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VideoGames.Models;
 
 
 namespace VideoGames.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext // the class inherited everything from package
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> // the class inherited everything from package
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
@@ -16,6 +18,9 @@ namespace VideoGames.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+           base.OnModelCreating(modelBuilder); // configuration for identity
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1},
                 new Category { Id = 2, Name = "Adventure", DisplayOrder = 2 },
