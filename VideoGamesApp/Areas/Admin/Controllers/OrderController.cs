@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VideoGames.DataAccess.Repository;
 using VideoGames.DataAccess.Repository.IRepository;
 using VideoGames.Models;
+using VideoGames.Models.ViewModels;
 using VideoGames.Utility;
 
 namespace VideoGamesApp.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize]
 	public class OrderController : Controller
 	{
 
@@ -23,8 +26,18 @@ namespace VideoGamesApp.Areas.Admin.Controllers
 			return View();
 		}
 
-		#region Api Calls
-		[HttpGet]
+        public IActionResult Details(int orderId)
+        {
+			OrderVM orderVM = new()
+			{
+				OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
+				OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeaderId == orderId, includeProperties: "Product")
+			};
+            return View(orderVM);
+        }
+
+        #region Api Calls
+        [HttpGet]
 		public IActionResult GetAll(string status)
 		{
 			IEnumerable<OrderHeader> objIOrderHeaderList = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
