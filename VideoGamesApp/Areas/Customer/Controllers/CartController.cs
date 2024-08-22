@@ -97,7 +97,7 @@ namespace VideoGamesApp.Areas.Customer.Controllers
 
             if (applicationUser.CompanyId.GetValueOrDefault()==0)
             {
-                ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayPayment;
+                ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
 			}
             else

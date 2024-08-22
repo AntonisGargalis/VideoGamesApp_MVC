@@ -174,7 +174,7 @@
                                 <div class="col-9">
                                     @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
                                     {
-                                        <input asp-for="OrderHeader.PaymentintentId" readonly type="text" class="form-control" />
+                                        <input asp-for="OrderHeader.PaymentIntentId" readonly type="text" class="form-control" />
                                     }
                                 </div>
                             </div>
@@ -267,9 +267,8 @@
                                Model.OrderHeader.OrderStatus != SD.StatusCancelled &&
                                Model.OrderHeader.OrderStatus != SD.StatusShipped)
                                 {
-                                    <input type="submit" class="btn btn-danger form-control my-1" value="Cancel Order" />
+                                    <input type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1" value="Cancel Order" />
                                 }
-
                             }
                         </div>
                     </div>

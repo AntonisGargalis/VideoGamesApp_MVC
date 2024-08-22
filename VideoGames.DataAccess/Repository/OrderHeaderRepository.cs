@@ -45,7 +45,7 @@ namespace VideoGames.DataAccess.Repository
             }
             if (!string.IsNullOrEmpty(paymentIntentId))
             {
-                orderFromDb.PaymentintentId = paymentIntentId;
+                orderFromDb.PaymentIntentId = paymentIntentId;
                 orderFromDb.PaymentDate = DateTime.Now; 
             }
 		}
