@@ -24,5 +24,8 @@ namespace VideoGames.Utility
 		public const string PaymentStatusApproved = "ApprovedForDelayedPayment";
 		public const string PaymentStatusDelayPayment = "ApprovedForDelayedPayment";
 		public const string PaymentStatuRejected = "Rejected";
+
+
+		public const string SessionCart = "SessionShoppingCart";
 	}
 }

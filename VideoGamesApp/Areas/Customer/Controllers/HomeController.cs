@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using VideoGames.DataAccess.Repository.IRepository;
 using VideoGames.Models;
+using VideoGames.Utility;
 
 namespace VideoGamesApp.Areas.Customer.Controllers
 {
@@ -32,7 +34,7 @@ namespace VideoGamesApp.Areas.Customer.Controllers
                 Count = 1,
                 ProductId = productId
             };            
-            return View(cart);
+            return View(cart);  
         }
         [HttpPost]
         [Authorize]
@@ -50,11 +52,15 @@ namespace VideoGamesApp.Areas.Customer.Controllers
                 //ShoppingCart exists
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
             }
             else
             {
                 //create new shopping cart
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unitOfWork.ShoppingCart.GetAll(u=> u.ApplicationUserId == userId).Count());
             }
 
             TempData["success"] = "Cart updated successfully";

@@ -51,6 +51,7 @@ StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey"
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 app.MapRazorPages(); // in order to work the identity who has razor pages
 app.MapControllerRoute(
     name: "default",
